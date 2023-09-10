@@ -1,0 +1,41 @@
+plugins {
+	id 'java'
+	id 'org.springframework.boot' version '2.7.15'
+	id 'io.spring.dependency-management' version '1.0.15.RELEASE'
+}
+
+group = 'com.bintian.learn'
+version = '0.0.1-SNAPSHOT'
+
+java {
+	sourceCompatibility = '20'
+}
+
+repositories {
+	maven {
+		url 'https://maven.aliyun.com/repository/public/'
+	}
+	mavenCentral()
+}
+
+dependencies {
+	implementation 'org.springframework.boot:spring-boot-starter-web'
+	implementation group: 'org.springframework', name: 'spring-context', version: '5.3.29'
+	implementation group: 'org.springframework', name: 'spring-tx', version: '5.3.29'
+	implementation group: 'org.hibernate', name: 'hibernate-core', version: '5.6.15.Final'
+	implementation group: 'com.zaxxer', name: 'HikariCP', version: '5.0.1'
+	implementation group: 'mysql', name: 'mysql-connector-java', version: '8.0.33'
+
+	annotationProcessor group: 'org.projectlombok', name: 'lombok', version: '1.18.28'
+	compileOnly group: 'org.projectlombok', name: 'lombok', version: '1.18.28'
+	testAnnotationProcessor group: 'org.projectlombok', name: 'lombok', version: '1.18.28'
+	testCompileOnly group: 'org.projectlombok', name: 'lombok', version: '1.18.28'
+	implementation group: 'org.springframework', name: 'spring-orm', version: '5.3.29'
+
+
+	testImplementation 'org.springframework.boot:spring-boot-starter-test'
+}
+
+tasks.named('test') {
+//	useJUnitPlatform()
+}
