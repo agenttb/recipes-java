@@ -13,6 +13,7 @@ import org.springframework.boot.context.properties.ConfigurationProperties;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.orm.hibernate5.HibernateTransactionManager;
+import org.springframework.orm.hibernate5.SpringSessionContext;
 import org.springframework.transaction.PlatformTransactionManager;
 
 import javax.sql.DataSource;
@@ -53,6 +54,7 @@ public class Mysql0DBConfig {
     public SessionFactory getSessionFactory(@Qualifier(dbDsName) DataSource dataSource) {
         StandardServiceRegistryBuilder ssrb = new StandardServiceRegistryBuilder();
         ssrb.applySetting("hibernate.connection.datasource", dataSource);
+        ssrb.applySetting("hibernate.current_session_context_class", "org.springframework.orm.hibernate5.SpringSessionContext");
         StandardServiceRegistry ssr = ssrb.configure(cfgXml).build();
         Metadata meta = new MetadataSources(ssr).getMetadataBuilder().build();
         SessionFactory sessionFactory = meta.buildSessionFactory();
