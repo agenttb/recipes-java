@@ -18,18 +18,18 @@ import org.springframework.transaction.PlatformTransactionManager;
 import javax.sql.DataSource;
 
 @Slf4j
-//@Configuration
-public class Mysql0DBConfig {
-    private final String dbPrefix = "tx.test.mysql0";
+@Configuration
+public class H2DBConfig {
+    private final String dbPrefix = "tx.test.h2";
 
     private final String hikariDbPrefix = dbPrefix + "." + "hikari";
-    private final String dbPropName = "mysql0Prop";
+    private final String dbPropName = "h2Prop";
 
-    private final String dbSessionFactory = "mysql0Fc";
-    private final String dbDsName = "mysql0Ds";
+    private final String dbSessionFactory = "h2Fc";
+    private final String dbDsName = "h2Ds";
 
-    private final String dsTM = "mysql0TM";
-    private static final String DRIVER_CLASS_NAME = "com.mysql.cj.jdbc.Driver";
+    private final String dsTM = "h2TM";
+    private static final String DRIVER_CLASS_NAME = "org.h2.Driver";
 
     private final String cfgXml = "testDbHibernate.cfg.xml";
 
@@ -51,6 +51,7 @@ public class Mysql0DBConfig {
 
     @Bean(name = dbSessionFactory)
     public SessionFactory getSessionFactory(@Qualifier(dbDsName) DataSource dataSource) {
+
         StandardServiceRegistryBuilder ssrb = new StandardServiceRegistryBuilder();
         ssrb.applySetting("hibernate.connection.datasource", dataSource);
         StandardServiceRegistry ssr = ssrb.configure(cfgXml).build();
@@ -65,6 +66,4 @@ public class Mysql0DBConfig {
         tm.setSessionFactory(sessionFactory);
         return tm;
     }
-
-
 }

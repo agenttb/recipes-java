@@ -8,6 +8,7 @@ import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Component;
 import org.springframework.transaction.annotation.Propagation;
 import org.springframework.transaction.annotation.Transactional;
+import org.springframework.transaction.support.TransactionSynchronizationManager;
 
 import java.io.Serializable;
 
@@ -17,13 +18,19 @@ public class CityManagerService {
 
     private final SessionFactory sessionFactory;
 
-    public CityManagerService(@Qualifier("mysql0Fc") SessionFactory sessionFactory) {
+    public CityManagerService(@Qualifier("h2Fc") SessionFactory sessionFactory) {
         this.sessionFactory = sessionFactory;
     }
 
-    @Transactional(transactionManager = "mysql0TM", propagation = Propagation.REQUIRED)
+    @Transactional(transactionManager = "h2TM", propagation = Propagation.REQUIRED)
     public void addCity(PersonVO personVO) {
-        Session session = sessionFactory.openSession();
+        Session session;
+        boolean active = TransactionSynchronizationManager.isActualTransactionActive();
+        if (active) {
+            session = sessionFactory.getCurrentSession();
+        } else {
+            session = sessionFactory.openSession();
+        }
 
         try {
             Serializable save = session.save(personVO);
