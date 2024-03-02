@@ -3,12 +3,11 @@ plugins {
 	id 'org.springframework.boot' version '2.7.15'
 	id 'io.spring.dependency-management' version '1.0.15.RELEASE'
 }
-
 group = 'com.bintian.learn'
 version = '0.0.1-SNAPSHOT'
 
 java {
-	sourceCompatibility = '20'
+	sourceCompatibility = '21'
 }
 
 repositories {
@@ -26,10 +25,10 @@ dependencies {
 	implementation group: 'com.zaxxer', name: 'HikariCP', version: '5.0.1'
 	implementation group: 'mysql', name: 'mysql-connector-java', version: '8.0.33'
 
-	annotationProcessor group: 'org.projectlombok', name: 'lombok', version: '1.18.28'
-	compileOnly group: 'org.projectlombok', name: 'lombok', version: '1.18.28'
-	testAnnotationProcessor group: 'org.projectlombok', name: 'lombok', version: '1.18.28'
-	testCompileOnly group: 'org.projectlombok', name: 'lombok', version: '1.18.28'
+	annotationProcessor group: 'org.projectlombok', name: 'lombok', version: '1.18.30'
+	compileOnly group: 'org.projectlombok', name: 'lombok', version: '1.18.30'
+	testAnnotationProcessor group: 'org.projectlombok', name: 'lombok', version: '1.18.30'
+	testCompileOnly group: 'org.projectlombok', name: 'lombok', version: '1.18.30'
 	implementation group: 'org.springframework', name: 'spring-orm', version: '5.3.29'
 
 

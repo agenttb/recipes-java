@@ -36,7 +36,7 @@ public class CityManagerService {
     @Transactional(transactionManager = "mysql0TM", propagation = Propagation.REQUIRED)
     public void addCity(PersonVO personVO) {
         Session session = sessionFactory.getCurrentSession();
-
+        session.getTransaction().begin();
         try {
             Serializable save = session.save(personVO);
             log.info(save.toString());
