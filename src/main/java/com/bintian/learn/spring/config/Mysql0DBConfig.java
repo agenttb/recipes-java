@@ -19,7 +19,7 @@ import org.springframework.transaction.PlatformTransactionManager;
 import javax.sql.DataSource;
 
 @Slf4j
-@Configuration
+//@Configuration
 public class Mysql0DBConfig {
     private final String dbPrefix = "tx.test.mysql0";
 

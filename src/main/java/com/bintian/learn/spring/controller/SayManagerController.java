@@ -3,14 +3,11 @@ package com.bintian.learn.spring.controller;
 import com.bintian.learn.spring.service.CityManagerService;
 import com.bintian.learn.spring.vo.PersonVO;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 @RestController
 @RequestMapping("/manage")
-public class CityManagerController {
+public class SayManagerController {
 
     @Autowired
     private CityManagerService managerService;
@@ -18,6 +15,11 @@ public class CityManagerController {
     @PostMapping("/insert")
     public String addCity(@RequestBody PersonVO person) {
         managerService.addCity(person);
+        return "ok";
+    }
+
+    @GetMapping("/initData")
+    public String initData() {
         return "ok";
     }
 }
