@@ -5,10 +5,6 @@
 
 <hibernate-mapping>
     <class name="com.bintian.learn.spring.vo.PersonVO" table="gce_test_person">
-        <meta attribute="class-description">
-            This class contains the employee detail.
-        </meta>
-
         <id name="personId" type="int" column="person_id">
             <generator class="native"/>
         </id>

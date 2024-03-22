@@ -33,8 +33,8 @@ public class CityManagerService {
         }
 
         try {
-            Serializable save = session.save(personVO);
-            log.info(save.toString());
+            session.persist(personVO);
+            log.info(personVO.getPersonId() + "");
         }  catch (Exception e) {
             log.error("Insert person error", e);
         } finally {

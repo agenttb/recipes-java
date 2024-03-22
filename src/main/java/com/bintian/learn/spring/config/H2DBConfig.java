@@ -54,6 +54,7 @@ public class H2DBConfig {
 
         StandardServiceRegistryBuilder ssrb = new StandardServiceRegistryBuilder();
         ssrb.applySetting("hibernate.connection.datasource", dataSource);
+        ssrb.applySetting("hibernate.transform_hbm_xml.enabled", Boolean.TRUE);
         StandardServiceRegistry ssr = ssrb.configure(cfgXml).build();
         Metadata meta = new MetadataSources(ssr).getMetadataBuilder().build();
         SessionFactory sessionFactory = meta.buildSessionFactory();

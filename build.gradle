@@ -1,14 +1,14 @@
 plugins {
 	id 'java'
-	id 'org.springframework.boot' version '2.7.15'
-	id 'io.spring.dependency-management' version '1.0.15.RELEASE'
+	id 'org.springframework.boot' version '3.2.3'
+	id 'io.spring.dependency-management' version '1.1.4'
 }
 
 group = 'com.bintian.learn'
 version = '0.0.1-SNAPSHOT'
 
 java {
-	sourceCompatibility = '11'
+	sourceCompatibility = '21'
 }
 
 repositories {
@@ -19,14 +19,16 @@ repositories {
 }
 
 dependencies {
-	implementation 'org.springframework.boot:spring-boot-starter-web'
-	implementation group: 'org.springframework', name: 'spring-context', version: '5.3.29'
-	implementation group: 'org.springframework', name: 'spring-tx', version: '5.3.29'
-	implementation group: 'org.hibernate', name: 'hibernate-core', version: '5.6.15.Final'
+	implementation('org.springframework.boot:spring-boot-starter-web')
+	implementation("org.springframework.boot:spring-boot-starter-data-jpa")
+	implementation group: 'org.springframework', name: 'spring-context', version: '6.1.4'
+	implementation group: 'org.springframework', name: 'spring-tx', version: '6.1.4'
+	implementation("org.hibernate.orm:hibernate-core:6.4.4.Final")
+	implementation group: 'org.springframework', name: 'spring-orm', version: '6.1.4'
+
 	implementation group: 'com.zaxxer', name: 'HikariCP', version: '5.0.1'
 	implementation group: 'mysql', name: 'mysql-connector-java', version: '8.0.33'
 	implementation group: 'io.projectreactor', name: 'reactor-core', version: '3.6.2'
-	implementation group: 'org.springframework.boot', name: 'spring-boot-starter-data-jpa', version: '2.7.15'
 
 	implementation group: 'com.h2database', name: 'h2', version: '2.2.224'
 	testImplementation group: 'org.mockito', name: 'mockito-core', version: '4.5.1'
@@ -38,7 +40,6 @@ dependencies {
 	compileOnly group: 'org.projectlombok', name: 'lombok', version: '1.18.30'
 	testAnnotationProcessor group: 'org.projectlombok', name: 'lombok', version: '1.18.30'
 	testCompileOnly group: 'org.projectlombok', name: 'lombok', version: '1.18.30'
-	implementation group: 'org.springframework', name: 'spring-orm', version: '5.3.29'
 
 
 	testImplementation 'org.springframework.boot:spring-boot-starter-test'
