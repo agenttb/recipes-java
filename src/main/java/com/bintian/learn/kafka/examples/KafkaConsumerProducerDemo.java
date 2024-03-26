@@ -14,9 +14,8 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package com.bintian.learn.examples;
+package com.bintian.learn.kafka.examples;
 
-import java.util.Optional;
 import java.util.concurrent.CountDownLatch;
 import java.util.concurrent.TimeUnit;
 
@@ -49,7 +48,7 @@ public class KafkaConsumerProducerDemo {
 
             // stage 1: clean any topics left from previous runs
             Utils.recreateTopics(KafkaProperties.BOOTSTRAP_SERVERS, -1, TOPIC_NAME);
-            CountDownLatch latch = new CountDownLatch(2);
+            CountDownLatch latch = new CountDownLatch(1);
 
             // stage 2: produce records to topic1
             Producer producerThread = new Producer(
@@ -57,14 +56,14 @@ public class KafkaConsumerProducerDemo {
             producerThread.start();
 
             // stage 3: consume records from topic1
-            Consumer consumerThread = new Consumer(
-                "consumer", KafkaProperties.BOOTSTRAP_SERVERS, TOPIC_NAME, GROUP_NAME, Optional.empty(), false, numRecords, latch);
-            consumerThread.start();
+//            Consumer consumerThread = new Consumer(
+//                "consumer", KafkaProperties.BOOTSTRAP_SERVERS, TOPIC_NAME, GROUP_NAME, Optional.empty(), false, numRecords, latch);
+//            consumerThread.start();
 
             if (!latch.await(5, TimeUnit.MINUTES)) {
                 Utils.printErr("Timeout after 5 minutes waiting for termination");
                 producerThread.shutdown();
-                consumerThread.shutdown();
+//                consumerThread.shutdown();
             }
         } catch (Throwable e) {
             e.printStackTrace();
