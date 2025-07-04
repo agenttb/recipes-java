@@ -1,7 +1,6 @@
 package com.bintian.learn.algorithm;
 
-import java.util.LinkedList;
-import java.util.Queue;
+import java.util.*;
 
 public class TreeSolution {
     private int max;
@@ -136,7 +135,47 @@ public class TreeSolution {
         return queue.isEmpty();
     }
 
+    public boolean isSubTree(TreeNode t1, TreeNode t2) {
+
+        return (t1 != null && t2 != null) && recur(t1, t2) || isSubTree(t1.left, t2) || isSubTree(t1.right, t2);
+    }
+
+    public boolean recur(TreeNode t1, TreeNode t2) {
+        if (t2 == null) {
+            return false;
+        }
+        if (t1 != null && t1.val != t2.val) {
+            return false;
+        }
+        return recur(t1.left, t2.left) && recur(t1.right, t2.right);
+    }
+
     public static void main(String[] args) {
         System.out.println(Integer.MAX_VALUE);
+        String[] arr = {"apple", "banana", "orange"};
+
+        String result = String.join(", ", arr);
+        result.split("\\.");
+        System.out.println(result);
     }
+
+    // 首先判断 p q的值和根节点的大小
+    // if roo is common ancestor for p and q, then if p < q  then  p < root.val < q, if q > p then q < root.val < p
+    public TreeNode lowestCommonAncestor(TreeNode root, TreeNode p, TreeNode q) {
+        if (root == null || p == null || q == null) {
+            return null;
+        }
+        if (root.val >= p.val && root.val <= q.val) {
+            return root;
+        }
+        else if  (root.val < p.val) {
+             return lowestCommonAncestor(root.right, p, q);
+        } else {
+            return lowestCommonAncestor(root.left, p, q);
+        }
+    }
+
+
+
+
 }

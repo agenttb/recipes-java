@@ -1,4 +1,4 @@
-package com.bintian.learn.spring.vo;
+package com.bintian.learn.spring.entity;
 
 public class PersonVO {
     private int personId;
