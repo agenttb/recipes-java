@@ -40,12 +40,6 @@ public class SortSolution {
         nums[j] = temp;
     }
 
-    public static void main(String[] args) {
-        SortSolution solution = new SortSolution();
-        var re = solution.frequencySort("tree");
-        System.out.println(re);
-    }
-
     public String frequencySort(String s) {
         Map<Character, Integer> map = new HashMap<>();
         int n = s.length();
@@ -68,4 +62,116 @@ public class SortSolution {
         }
         return sb.toString();
     }
+
+    public int[] countServersSlidingWindows(int n, int[][] logs, int x, int[] queries) {
+        Arrays.sort(logs, Comparator.comparingInt(a -> a[1]));
+        int[][] sortedQueries = new int[queries.length][2];
+        for (int i = 0; i < queries.length; i++) {
+            sortedQueries[i][0] = queries[i];
+            sortedQueries[i][1] = i;
+        }
+        Arrays.sort(sortedQueries, Comparator.comparingInt(a -> a[0]));
+        int[] result = new int[queries.length];
+        Map<Integer, Integer> serverCounts = new HashMap<>();
+
+        int left = 0;
+        int right = 0;
+
+        for (int[] query : sortedQueries) {
+            int endTime = query[0];
+            int originalIndex = query[1];
+            int startTime = endTime - x;
+
+            while (right < logs.length && logs[right][1] <= endTime) {
+                int serverId = logs[right][1];
+                serverCounts.put(serverId, serverCounts.getOrDefault(serverId, 0) + 1);
+                right++;
+            }
+
+            while (left < right && logs[left][1] < startTime) {
+                int serverId = logs[left][1];
+                serverCounts.put(serverId, serverCounts.get(serverId)-1);
+                if (serverCounts.get(serverId) == 0) {
+                    serverCounts.remove(serverId);
+                }
+                left++;
+            }
+            int activeServers = serverCounts.size();
+            result[originalIndex] = n -activeServers;
+        }
+        return result;
+    }
+
+    public int[] countServers(int n, int[][] logs, int x, int[] queries) {
+        Arrays.sort(logs, (a, b) -> a[1] - b[1]);
+        int[] result = new int[queries.length];
+
+        for (int i = 0; i < queries.length; i++) {
+            int start = queries[i] - x;
+            int end = queries[i];
+            int endIndex = Arrays.binarySearch(logs, new int[]{end+1, end+1}, Comparator.comparingInt(a -> a[1]));
+
+            int  startIndex = Arrays.binarySearch(logs, new int[]{start, start}, Comparator.comparingInt(a -> a[1]));
+            if (startIndex < 0) {
+                startIndex = -startIndex - 1;
+            }
+            if (endIndex < 0) {
+                endIndex = -endIndex - 1;
+            }
+            Set<Integer> serverCnt = new HashSet<>();
+            for (int j = startIndex; j <= endIndex && j < logs.length; j++) {
+                if (logs[j][1] >= start && logs[j][1] <= end) {
+                    serverCnt.add(logs[j][0]);
+                }
+            }
+            result[i] = n - serverCnt.size();
+        }
+        return result;
+    }
+
+    public int binarySearchLeftmost(int[] nums, int target) {
+        int left = 0;
+        int right = nums.length;
+        while (left < right) {
+            int mid = left + (right - left)/2;
+            if (nums[mid] < target) {
+                left = mid + 1;
+            } else {
+                right = mid;
+            }
+        }
+        return left;
+    }
+
+    public int binarySearchRightmost(int[] nums, int target) {
+        int left = 0;
+        int right = nums.length;
+        while (left < right) {
+            int mid = left + (right - left)/2;
+            if (nums[mid] > target) {
+                right = mid;
+            } else {
+                left = mid + 1;
+            }
+        }
+        return right - 1;
+    }
+
+    public static void main(String[] args) {
+        SortSolution solution = new SortSolution();
+//        int[] ints = solution.countServers(3, new int[][]{{2, 4}, {2, 1}, {1, 2}, {3, 1}}, 2, new int[]{3, 4});
+//        System.out.println(Arrays.toString(ints));
+
+        int[] p = new int[] {1,2,3,4,4,4,4,4,6,6,7,8,9};
+//        int index = Arrays.binarySearch(p, 4);
+//        System.out.println(index);
+
+        int index1 = solution.binarySearchLeftmost(p, 5);
+        System.out.println(index1);
+
+        int index2 = solution.binarySearchRightmost(p, 5);
+        System.out.println(index2);
+
+    }
+
 }
