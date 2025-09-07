@@ -1,16 +1,12 @@
 package com.bintian.learn.algorithm.solution.array;
 
-import java.util.ArrayList;
-import java.util.HashSet;
-import java.util.List;
-import java.util.Set;
+import java.util.*;
 
 public class Solution {
     public static void main(String[] args) {
         Solution solution = new Solution();
-        int[] waters = new int[] {3,1,2,5,2,4};
-        int i = solution.singleNonDuplicate(new int[]{3, 3, 7, 7, 10, 11, 11});
-        System.out.println(i);
+        var res  = solution.checkInclusion("ab", "eidbaooo");
+        System.out.println(res);
 
     }
 
@@ -126,5 +122,34 @@ public class Solution {
             }
         }
         return -1;
+    }
+
+    public boolean checkInclusion(String s1, String s2) {
+        int n1 = s1.length();
+        int n2 = s2.length();
+        if (n1 > n2) {
+            return false;
+        }
+        int[] s1Freq = new int[26];
+        int[] windowsFreq = new int[26];
+        for (int i = 0; i < n1; i++) {
+            s1Freq[s1.charAt(i) - 'a']++;
+            windowsFreq[s2.charAt(i) - 'a']++;
+        }
+
+        if (Arrays.equals(s1Freq, windowsFreq)) {
+            return true;
+        }
+
+        for (int right = n1; right < n2; right++) {
+            windowsFreq[s2.charAt(right) - 'a']++;
+            int leftIndex = right - n1;
+            windowsFreq[s2.charAt(leftIndex) - 'a']--;
+            if (Arrays.equals(s1Freq, windowsFreq)) {
+                return true;
+            }
+
+        }
+        return false;
     }
 }

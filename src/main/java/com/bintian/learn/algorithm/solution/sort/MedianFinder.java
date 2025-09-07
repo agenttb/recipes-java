@@ -94,4 +94,33 @@ public class MedianFinder {
         }
         return res;
     }
+
+
+    public int[] topKFrequency(int[] nums, int k) {
+        if (nums == null || nums.length < k) {
+            return new int[0];
+        }
+        Map<Integer, Integer> counterMap = new HashMap<>();
+        for (int num : nums) {
+            counterMap.put(num, counterMap.getOrDefault(num, 0) + 1);
+        }
+        PriorityQueue<Map.Entry<Integer, Integer>> minHeap = new PriorityQueue<>(
+                Comparator.comparingInt(Map.Entry::getValue));
+        for (var entry : counterMap.entrySet()) {
+            if (minHeap.size() < k) {
+                minHeap.offer(entry);
+            } else {
+                var minElement = minHeap.peek();
+                if (entry.getValue() > minElement.getValue()) {
+                    minHeap.poll();
+                    minHeap.offer(entry);
+                }
+            }
+        }
+        int[] result = new int[k];
+        for (int i = 0; i < k; i++) {
+            result[i] = minHeap.poll().getKey();
+        }
+        return result;
+    }
 }

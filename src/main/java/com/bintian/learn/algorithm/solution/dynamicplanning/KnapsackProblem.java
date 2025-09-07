@@ -93,4 +93,27 @@ public class KnapsackProblem {
         }
         return dp[amount] > amount ? -1 : dp[amount];
     }
+
+    public int coinsChange(int[] coins, int amount) {
+        int res = dp(coins, amount);
+        return res;
+    }
+
+    private int dp(int[] coins, int amount) {
+        if (amount == 0) {
+            return 0;
+        }
+        if (amount < 0) {
+            return -1;
+        }
+        int res = Integer.MAX_VALUE;
+        for (int coin : coins) {
+            int subProblem = Math.min(res, dp(coins, amount - coin) + 1);
+            if (subProblem == -1) {
+                continue;
+            }
+            res = Math.min(res, subProblem + 1);
+        }
+        return res == Integer.MAX_VALUE ? - 1 : res;
+    }
 }
