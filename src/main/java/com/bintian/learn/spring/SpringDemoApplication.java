@@ -9,8 +9,8 @@ import org.springframework.boot.autoconfigure.orm.jpa.HibernateJpaAutoConfigurat
 import org.springframework.context.annotation.ComponentScan;
 import org.springframework.transaction.annotation.EnableTransactionManagement;
 
-@SpringBootApplication(scanBasePackages = "com.bintian.learn.spring")
-@EntityScan(basePackages="com.bintian.learn.spring.hibernate.entity")
+//@SpringBootApplication(scanBasePackages = "com.bintian.learn.spring")
+//@EntityScan(basePackages="com.bintian.learn.spring.hibernate.entity")
 public class SpringDemoApplication {
 
 	public static void main(String[] args) {
